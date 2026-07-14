@@ -1,0 +1,26 @@
+README.md
+  s_b33fc9e1a6020b::t_a7c1155a21100f 43-44
+  s_b33fc9e1a6020b::t_7cffbf96b61e4c 7,16,18,20
+  s_b33fc9e1a6020b::t_92282fec1fb47d 1-2,4-6,8-15,17,19,21-27,30-42,45-64,67-71
+  s_b33fc9e1a6020b::t_7f8ea938ab1c91 65
+  s_b33fc9e1a6020b::t_91274098f78a51 28
+  s_b33fc9e1a6020b::t_9a7ddc3e4234bd 66
+  s_b33fc9e1a6020b::t_1d589ff6140ed0 29
+  s_b33fc9e1a6020b::t_f65c7d2fad8e09 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "59381d3d4e92b372288ad725068d6fe7e621e5fa",
+  "prompts": {},
+  "sessions": {
+    "s_b33fc9e1a6020b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9f4235f4-92ad-4460-b4f1-1da0de5cba5f",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Marina Rosa <mrosa@manifestcyber.com>"
+    }
+  }
+}
