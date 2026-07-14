@@ -1,0 +1,29 @@
+.claude-plugin/plugin.json
+  s_eb39e5610fe833::t_8dbe6532bd10e8 1-15
+.claude-plugin/marketplace.json
+  s_eb39e5610fe833::t_b7bfccc26ecb15 1-2,4-16
+  s_eb39e5610fe833::t_4d1c4ceb8b00f5 3
+.mcp.json
+  s_eb39e5610fe833::t_a78ea091ce8db7 1-11
+README.md
+  s_eb39e5610fe833::t_023754c2609c25 44-76
+  s_eb39e5610fe833::t_d960aac480ebdc 34-35
+  s_eb39e5610fe833::t_b6d25b5493fd81 93-100
+  s_eb39e5610fe833::t_c3ecc5204d346b 1,3-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "27b33a54e4e4445360074e6aebcd544b3b03d062",
+  "prompts": {},
+  "sessions": {
+    "s_eb39e5610fe833": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "52eb02bb-770b-4be8-b468-c64bde174f3b",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Marina Rosa <mrosa@manifestcyber.com>"
+    }
+  }
+}
