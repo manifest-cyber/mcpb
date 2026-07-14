@@ -45,20 +45,20 @@ Under the hood:
 
 This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces). In a Claude Code session:
 
-```
+```shell
 /plugin marketplace add manifest-cyber/mcpb
 /plugin install manifest-cyber@manifest-cyber
 ```
 
 Or from the shell: `claude plugin marketplace add manifest-cyber/mcpb`, then `claude plugin install manifest-cyber@manifest-cyber`.
 
-When the plugin is enabled, Claude Code prompts for your Manifest Cyber API key and stores it in secure storage (macOS Keychain). The plugin connects directly to the Manifest Cyber MCP server over Streamable HTTP; no local server or Node runtime is involved.
+When the plugin is enabled, Claude Code prompts for your Manifest Cyber API key and stores it in secure storage (the macOS Keychain where available). The plugin connects directly to the Manifest Cyber MCP server over Streamable HTTP; no local server or Node runtime is involved.
 
 Notes:
 
 - While this repository is private, installing requires GitHub access to it with working git credentials (`gh auth login` and `gh auth setup-git`, or SSH).
 - To target a different server, set `MANIFEST_MCP_URL` to a full endpoint URL including the `/mcp` path before starting Claude Code. Unset, it defaults to the production server (`https://mcp.manifestcyber.com/mcp`).
-- Update with `/plugin update manifest-cyber@manifest-cyber`, or turn on auto-update for the marketplace under **/plugin → Marketplaces**. Versions track commits to this repo.
+- Update with `/plugin update manifest-cyber@manifest-cyber`, or turn on auto-update for the marketplace under **/plugin → Marketplaces**. Versions track commits to this repo. While the repo is private, auto-update refreshes in the background where credential prompts are unavailable, so it needs noninteractive Git authentication (SSH, or token-based credentials such as `gh auth setup-git`); if that is not possible, update manually with `/plugin update`.
 - Verify with `/mcp`: the `manifest-cyber` server should show as connected.
 
 ## Install in Codex
@@ -94,7 +94,7 @@ Claude Desktop does not upgrade an installed extension in place. Remove the exis
 
 The Manifest Cyber MCP server is a standard remote MCP server (Streamable HTTP with bearer auth). Any client that supports remote servers with custom headers can connect to `https://mcp.manifestcyber.com/mcp` with the header `Authorization: Bearer <your API key>`. For example, in Claude Code without the plugin:
 
-```
+```shell
 claude mcp add --transport http manifest https://mcp.manifestcyber.com/mcp --header "Authorization: Bearer YOUR_KEY"
 ```
 

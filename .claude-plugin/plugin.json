@@ -7,7 +7,7 @@
     "api_key": {
       "type": "string",
       "title": "Manifest Cyber API key",
-      "description": "Your Manifest Cyber API key with read permissions. Stored in secure storage (macOS Keychain).",
+      "description": "Your Manifest Cyber API key with read permissions. Stored in secure storage (macOS Keychain where available).",
       "sensitive": true,
       "required": true
     }
