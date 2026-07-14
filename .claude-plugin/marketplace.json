@@ -1,0 +1,16 @@
+{
+  "name": "manifest-cyber",
+  "description": "Official Manifest Cyber plugins for Claude Code",
+  "owner": { "name": "Manifest Cyber" },
+  "plugins": [
+    {
+      "name": "manifest-cyber",
+      "source": "./",
+      "description": "Connect Claude Code to the Manifest Cyber platform: assets, components, vulnerabilities, products, SBOMs, and labels as MCP tools.",
+      "author": { "name": "Manifest Cyber" },
+      "homepage": "https://github.com/manifest-cyber/mcpb",
+      "category": "security",
+      "keywords": ["mcp", "sbom", "vulnerabilities", "supply-chain", "manifest-cyber"]
+    }
+  ]
+}
