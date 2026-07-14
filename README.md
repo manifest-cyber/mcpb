@@ -1,6 +1,15 @@
-# Manifest Cyber Claude Desktop Extension
+# Manifest Cyber MCP Integration
 
-This repository distributes the Manifest Cyber extension for Claude Desktop. Each [release](https://github.com/manifest-cyber/mcpb/releases) ships a `manifest-cyber-X.Y.Z.mcpb` bundle that connects Claude Desktop to the Manifest Cyber platform, exposing Manifest Cyber data (assets, components, vulnerabilities, products, SBOMs, labels) as MCP tools inside your Claude conversations.
+This repository distributes the Manifest Cyber MCP integration, exposing Manifest Cyber platform data (assets, components, vulnerabilities, products, SBOMs, labels) as MCP tools inside your AI assistant. Every install path connects to the same remote Manifest Cyber MCP server; pick the one for your client:
+
+| Client | Install path |
+|---|---|
+| Claude Code | [Plugin marketplace hosted in this repo](#install-in-claude-code) |
+| Codex | [Manual `config.toml` entry](#install-in-codex) |
+| Claude Desktop | [`.mcpb` bundle from each release](#install-in-claude-desktop) |
+| Other MCP clients | [Streamable HTTP endpoint + API key](#other-mcp-clients) |
+
+All paths require a Manifest Cyber API key with read permissions.
 
 ## How it works
 
@@ -22,6 +31,8 @@ Manifest Cyber MCP server
 Manifest Cyber platform
 ```
 
+The bundled proxy exists only because Claude Desktop requires a local entry point. Claude Code, Codex, and other clients with native Streamable HTTP support connect to the Manifest Cyber MCP server directly; the proxy layer above does not apply to them.
+
 Under the hood:
 
 - Claude Desktop runs the extension's entry point in an Electron UtilityProcess using its built-in Node runtime. In that sandbox a spawned child process does not get a working stdio link to Claude Desktop's MCP channel, so the bridge cannot be launched as a subprocess. It therefore runs **in-process**.
@@ -30,7 +41,39 @@ Under the hood:
 - The proxy is stateless and stores nothing. Your API key is stored encrypted by Claude Desktop (macOS Keychain) and is only ever sent to the server URL you configure.
 - Because the tools are defined server-side, tool additions and fixes reach you without an extension update. A new extension release is only needed when the proxy, its dependencies, or the manifest metadata change.
 
-## Install
+## Install in Claude Code
+
+This repo is a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces). In a Claude Code session:
+
+```
+/plugin marketplace add manifest-cyber/mcpb
+/plugin install manifest-cyber@manifest-cyber
+```
+
+Or from the shell: `claude plugin marketplace add manifest-cyber/mcpb`, then `claude plugin install manifest-cyber@manifest-cyber`.
+
+When the plugin is enabled, Claude Code prompts for your Manifest Cyber API key and stores it in secure storage (macOS Keychain). The plugin connects directly to the Manifest Cyber MCP server over Streamable HTTP; no local server or Node runtime is involved.
+
+Notes:
+
+- While this repository is private, installing requires GitHub access to it with working git credentials (`gh auth login` and `gh auth setup-git`, or SSH).
+- To target a different server, set `MANIFEST_MCP_URL` to a full endpoint URL including the `/mcp` path before starting Claude Code. Unset, it defaults to the production server (`https://mcp.manifestcyber.com/mcp`).
+- Update with `/plugin update manifest-cyber@manifest-cyber`, or turn on auto-update for the marketplace under **/plugin → Marketplaces**. Versions track commits to this repo.
+- Verify with `/mcp`: the `manifest-cyber` server should show as connected.
+
+## Install in Codex
+
+Codex has no plugin marketplace; add the server to `~/.codex/config.toml` manually:
+
+```toml
+[mcp_servers.manifest]
+url = "https://mcp.manifestcyber.com/mcp"
+bearer_token_env_var = "MANIFEST_API_KEY"
+```
+
+Export your API key in the environment Codex runs from (e.g. `export MANIFEST_API_KEY=...` in your shell profile), then verify with `codex mcp list`. Note that `codex mcp add` only covers stdio servers; HTTP servers are configured in `config.toml` as above.
+
+## Install in Claude Desktop
 
 Requires Claude Desktop on macOS.
 
@@ -46,6 +89,14 @@ Requires Claude Desktop on macOS.
 ### Updating
 
 Claude Desktop does not upgrade an installed extension in place. Remove the existing **Manifest Cyber** entry under **Settings → Extensions**, then install the new `.mcpb`.
+
+## Other MCP clients
+
+The Manifest Cyber MCP server is a standard remote MCP server (Streamable HTTP with bearer auth). Any client that supports remote servers with custom headers can connect to `https://mcp.manifestcyber.com/mcp` with the header `Authorization: Bearer <your API key>`. For example, in Claude Code without the plugin:
+
+```
+claude mcp add --transport http manifest https://mcp.manifestcyber.com/mcp --header "Authorization: Bearer YOUR_KEY"
+```
 
 ## Allowlisting in Claude Desktop (Team / Enterprise)
 

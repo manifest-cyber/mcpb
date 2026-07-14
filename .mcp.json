@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "manifest-cyber": {
+      "type": "http",
+      "url": "${MANIFEST_MCP_URL:-https://mcp.manifestcyber.com/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${user_config.api_key}"
+      }
+    }
+  }
+}
